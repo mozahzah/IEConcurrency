@@ -5,3 +5,4 @@
 #pragma once
 
 #include "Source/IESpinOnWriteObject.h"
+#include "Source/IESPSCQueue.h"
