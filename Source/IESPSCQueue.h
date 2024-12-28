@@ -5,7 +5,6 @@
 #pragma once
 
 #include <atomic>
-#include <array>
 #include <memory>
 #include <thread>
 
@@ -36,8 +35,8 @@ public:
             return false;
         }
 
-        new (m_Data + (m_BackIndex % m_Capacity)) T(Value);
-        m_BackIndex++;
+        new (m_Data + (m_BackIndex)) T(Value);
+        m_BackIndex = (m_BackIndex + 1) % m_Capacity;
         m_Num.fetch_add(1, std::memory_order_release);
         return true;
     }
@@ -49,10 +48,9 @@ public:
             return std::nullopt;
         }
 
-        const size_t CurrentFrontIndex = m_FrontIndex % m_Capacity;
-        std::optional<T> Element(std::move(m_Data[CurrentFrontIndex]));
-        m_Data[CurrentFrontIndex].~T();
-        m_FrontIndex++;
+        std::optional<T> Element(std::move(m_Data[m_FrontIndex]));
+        m_Data[m_FrontIndex].~T();
+        m_FrontIndex = (m_FrontIndex + 1) % m_Capacity;
         m_Num.fetch_sub(1, std::memory_order_release);
         return Element;
     }
