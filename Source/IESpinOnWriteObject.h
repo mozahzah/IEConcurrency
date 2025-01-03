@@ -60,7 +60,7 @@ public:
 public:
     const LockedValue LockForRead()
     {
-        return LockedValue(ScopedLock(*this), *m_Object.exchange(nullptr));
+        return LockedValue{ ScopedLock(*this), *m_Object.exchange(nullptr) };
     }
 
     void Write(const T& NewObject)
