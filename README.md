@@ -10,6 +10,9 @@
 
 IE's concurrency library offering various tools and utilities for parallel programming.
 
+## Third-Party Libraries Used
+- [Google-Benchmark](https://github.com/google/benchmark)
+
 ## Contribution
 Contributors are welcomed to this open-source project. Any feedback or assistance, whether in coding, packaging, documentation, design, or testing, is greatly appreciated. 
 
